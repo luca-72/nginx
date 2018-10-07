@@ -1,0 +1,4 @@
+#file: roles/nginx/defaults/main.yml
+nginx_port: 80
+nginx_root: /var/www/html/static-site
+nginx_index: index.html

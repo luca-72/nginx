@@ -1,0 +1,10 @@
+---
+- name: "Install latest nginx version"
+  apt: name=nginx state=latest
+
+
+# ---
+#     # filename: roles/mysql/tasks/install_Debian.yml
+#   - name: "install mysql server"
+#     apt: name=mysql state=latest
+#      update_cache:yes

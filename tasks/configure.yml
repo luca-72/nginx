@@ -1,0 +1,33 @@
+---
+- name: "copy the nginx config file and restart nginx"
+  #copy:
+        #src: /Users/wmendoza/Ansible/deploy/ansible/roles/nginx/files/default.conf
+  template:
+        src=default.conf.j2
+        dest=/etc/nginx/sites-available/static_site.cfg
+  become: yes
+- name: "Remove the nginx default file"
+  shell: rm /etc/nginx/sites-enabled/default
+  args:
+        chdir: /etc/nginx/sites-enabled/
+  become: yes
+- name: "copy the sites-enabled directory"
+  copy:
+        src: /Users/wmendoza/Ansible/deploy/ansible/roles/nginx/files/sites-enabled
+        dest: /etc/nginx/sites-enabled
+  become: yes
+- name: "create symlink"
+  file:
+        src: /etc/nginx/sites-available/static_site.cfg
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+        force: yes
+  become: yes
+  notify:
+    - restart nginx service
+- name: "copy the content of the web site"
+  copy:
+        src: /Users/wmendoza/Ansible/deploy/ansible/roles/nginx/files/static-site/
+        dest: /var/www/html/static-site
+  notify:
+    - restart nginx service
