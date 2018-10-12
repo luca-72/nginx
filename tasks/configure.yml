@@ -13,7 +13,7 @@
   become: yes
 - name: "copy the sites-enabled directory"
   copy:
-        src: /Users/wmendoza/Ansible/deploy/ansible/roles/nginx/files/sites-enabled
+        src: /Users/wmendoza/Ansible/roles/nginx/files/sites-enabled
         dest: /etc/nginx/sites-enabled
   become: yes
 - name: "create symlink"
@@ -27,7 +27,8 @@
     - restart nginx service
 - name: "copy the content of the web site"
   copy:
-        src: /Users/wmendoza/Ansible/deploy/ansible/roles/nginx/files/static-site/
+        src: /Users/wmendoza/Ansible/roles/nginx/files/static-site/
         dest: /var/www/html/static-site
   notify:
     - restart nginx service
+  ignore_errors: 
